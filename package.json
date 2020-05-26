@@ -12,10 +12,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "lit-element": "^2.3.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@storybook/html": "^5.3.19",
+    "@storybook/addon-knobs": "^5.3.19",
     "babel-loader": "^8.1.0"
   }
 }
