@@ -14,7 +14,8 @@ start story book : run ```npm start```
 
 navigate to ```http://localhost:8080```
 
-## What does it contain ?
+
+## What does it contain ?
 
 \<progress-bar\/>
 
