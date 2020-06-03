@@ -1,7 +1,7 @@
 import {LitElement} from 'lit-element';
 
 /**
- * Simple horizontal progress bar
+ * Guitar Chord
  */
 export class GuitarChord extends LitElement {
 
