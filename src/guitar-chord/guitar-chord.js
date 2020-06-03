@@ -3,7 +3,7 @@ import {LitElement} from 'lit-element';
 /**
  * Simple horizontal progress bar
  */
-export class GuitarTab extends LitElement {
+export class GuitarChord extends LitElement {
 
     constructor() {
         super();
@@ -12,26 +12,26 @@ export class GuitarTab extends LitElement {
         this.height = 120;
         this.stringsCount = 6;
         this.fretsCount = 5;
-        this.tab = '';
+        this.chord = '';
     }
 
     static get properties() {
         return {
             name: {type: String},
-            tab: {type: String},
+            chord: {type: String},
             stringsCount: {type: Number},
             fretsCount: {type: Number}
         };
     }
 
-    set tab(tab) {
-        // todo : validate that given tab string is a valid tab model
-        this._tab = tab;
-        this._tabModel = TabModel.parse(tab);
+    set chord(chord) {
+        // todo : validate that given chord string is a valid chord model
+        this._chord = chord;
+        this._chordModel = ChordModel.parse(chord);
     }
 
-    get tab() {
-        return this._tab;
+    get chord() {
+        return this._chord;
     }
 
     _getNoteRadius() {
@@ -75,8 +75,8 @@ export class GuitarTab extends LitElement {
         ctx.fillRect(fretboardX, fretboardY, fretboardWidth, nutHeight);
 
 
-        const minFret = this._tabModel.notes.reduce((previous, current) => current <= 0 ? previous : Math.min(previous, current), 100000) || 0;
-        const maxFret = this._tabModel.notes.reduce((previous, current) => Math.max(previous, current), 0) || this.fretsCount - 1;
+        const minFret = this._chordModel.notes.reduce((previous, current) => current <= 0 ? previous : Math.min(previous, current), 100000) || 0;
+        const maxFret = this._chordModel.notes.reduce((previous, current) => Math.max(previous, current), 0) || this.fretsCount - 1;
         let firstFret = 1;
         if (maxFret > this.fretsCount) {
             firstFret = minFret - 1;
@@ -102,7 +102,7 @@ export class GuitarTab extends LitElement {
 
         // notes
         ctx.fillStyle = "#000000";
-        this._tabModel.notes.forEach((n, i) => {
+        this._chordModel.notes.forEach((n, i) => {
             if (n === -1) {
                 const left = fretboardX + gap * i - noteRadius + 2;
                 const right = fretboardX + gap * i - noteRadius + noteRadius * 2 - 2;
@@ -132,12 +132,12 @@ export class GuitarTab extends LitElement {
     }
 }
 
-export class TabModel {
+export class ChordModel {
     /**
-     * parse given str into a TabModel object. str is expected to be the comma separated value of the positions of each strings.
+     * parse given str into a ChordModel object. str is expected to be the comma separated value of the positions of each strings.
      * x, X means a string not played., 0 means a string played without fretting a note. 1 means fretting on the first fret.
      * @param {String} str
-     * @returns {TabModel}
+     * @returns {ChordModel}
      */
     static parse(str) {
         let notes = str.split(',').map(e => {
@@ -148,7 +148,7 @@ export class TabModel {
         });
 
 
-        return new TabModel(notes);
+        return new ChordModel(notes);
     }
 
     /**
@@ -160,4 +160,4 @@ export class TabModel {
 }
 
 
-window.customElements.define('guitar-tab', GuitarTab);
+window.customElements.define('guitar-chord', GuitarChord);
