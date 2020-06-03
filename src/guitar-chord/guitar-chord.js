@@ -11,7 +11,7 @@ export class GuitarChord extends LitElement {
         this.width = 80;
         this.height = 120;
         this.stringsCount = 6;
-        this.fretsCount = 5;
+        this.visibleFretsCount = 5;
         this.chord = '';
     }
 
@@ -20,7 +20,7 @@ export class GuitarChord extends LitElement {
             name: {type: String},
             chord: {type: String},
             stringsCount: {type: Number},
-            fretsCount: {type: Number}
+            visibleFretsCount: {type: Number}
         };
     }
 
@@ -37,7 +37,7 @@ export class GuitarChord extends LitElement {
     _getNoteRadius() {
         return Math.min(
             (this.width - 1) / (this.stringsCount - 1),
-            (this.height - 5) / (this.fretsCount + 1)
+            (this.height - 5) / (this.visibleFretsCount + 1)
         ) / 3;
     }
 
@@ -76,18 +76,18 @@ export class GuitarChord extends LitElement {
 
 
         const minFret = this._chordModel.notes.reduce((previous, current) => current <= 0 ? previous : Math.min(previous, current), 100000) || 0;
-        const maxFret = this._chordModel.notes.reduce((previous, current) => Math.max(previous, current), 0) || this.fretsCount - 1;
+        const maxFret = this._chordModel.notes.reduce((previous, current) => Math.max(previous, current), 0) || this.visibleFretsCount - 1;
         let firstFret = 1;
-        if (maxFret > this.fretsCount) {
+        if (maxFret > this.visibleFretsCount) {
             firstFret = minFret - 1;
         }
 
         // frets
         const lastFretBottomPadding = 4;
-        const fretGap = (fretboardHeight - nutHeight - 1 - lastFretBottomPadding) / this.fretsCount;
+        const fretGap = (fretboardHeight - nutHeight - 1 - lastFretBottomPadding) / this.visibleFretsCount;
         ctx.font = "10px Arial";
         ctx.textAlign = "left";
-        for (let i = 1; i < this.fretsCount + 1; i++) {
+        for (let i = 1; i < this.visibleFretsCount + 1; i++) {
             const y = fretboardY + nutHeight - 1 + fretGap * i;
             ctx.fillRect(fretboardX, y, fretboardWidth, 1);
 
