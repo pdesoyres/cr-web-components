@@ -2,9 +2,7 @@
 
 ## What is this ?
 
-Just for fun, this is a collection of web components, made with [LitElement](https://lit-element.polymer-project.org/).
-
-All components are showcased using [Storybook](https://github.com/storybookjs/storybook)
+Just for fun, this is my first try on building web components, made with [LitElement](https://lit-element.polymer-project.org/).
 
 ## How do I run it ?
 
